@@ -1,0 +1,19 @@
+# Editor
+.idea/*
+.vscode/*
+
+# Python
+__pycache__/
+
+# Environment
+ven/
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Logs
+logs/
