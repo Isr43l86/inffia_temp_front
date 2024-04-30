@@ -11,13 +11,13 @@ def unauthenticated_menu():
 
 
 def menu():
-    if "user" not in st.session_state or st.session_state.user is None:
+    if "current_user" not in st.session_state or st.session_state.current_user.accessToken is None:
         unauthenticated_menu()
         return
     authenticated_menu()
 
 
 def menu_with_redirect():
-    if "user" not in st.session_state or st.session_state.user is None:
+    if "current_user" not in st.session_state or st.session_state.current_user.accessToken is None:
         st.switch_page("app.py")
     menu()
