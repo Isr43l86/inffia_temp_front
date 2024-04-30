@@ -1,4 +1,5 @@
 import os
+import time
 
 import requests
 import streamlit as st
@@ -22,6 +23,8 @@ def verify_email_component():
                 response = response.json()
                 st.session_state.current_user.accessToken = response['access_token']
                 st.success(MESSAGES_EMAIL_VERIFIED_SUCCESS, icon="✅")
+                time.sleep(3)
+                st.switch_page("pages/llmCoip.py")
             except Exception as e:
                 st.exception(e)
 
