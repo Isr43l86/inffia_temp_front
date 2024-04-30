@@ -1,4 +1,7 @@
 # LOGIN
+LOGIN_EMPTY_EMAIL = 'Correo electrónico obligatorio'
+LOGIN_EMPTY_PASSWORD = 'Contraseña obligatoria'
+
 # SIGNUP
 SIGNUP_EMAIL_INVALID = 'Correo electrónico no válido'
 SIGNUP_PHONE_INVALID = 'Número de teléfono no valido'

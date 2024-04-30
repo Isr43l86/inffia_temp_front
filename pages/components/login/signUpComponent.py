@@ -14,7 +14,7 @@ def sign_up_component():
         user_signup_lastname = st.text_input('Apellido', placeholder='Ingresa tu apellido')
         user_signup_email = st.text_input('Correo electrónico', placeholder='Ingresa tu correo electrónico')
         if not verify_email(user_signup_email) and user_signup_email:
-            st.error(SIGNUP_EMAIL_INVALID)
+            st.error(SIGNUP_EMAIL_INVALID, icon="🚨")
 
         col1, col2 = st.columns([2.3, 10])
         with col1:
@@ -23,14 +23,14 @@ def sign_up_component():
             user_signup_phone = st.text_input('Teléfono', max_chars=9, placeholder='Ingresa tu número de teléfono',
                                               label_visibility='hidden')
         if (user_signup_phone.isalpha() or len(user_signup_phone) < 9) and user_signup_phone:
-            st.error(SIGNUP_PHONE_INVALID)
+            st.error(SIGNUP_PHONE_INVALID, icon="🚨")
 
         user_signup_password = st.text_input('Contraseña', type='password', placeholder="Ingresa tu contraseña")
         user_signup_password_verify = st.text_input('Repite tu contraseña', type='password', placeholder="Repite tu "
                                                                                                          "contraseña")
 
         if user_signup_password != user_signup_password_verify and user_signup_password_verify:
-            st.error(SIGNUP_NOT_SAME_PASSWORD)
+            st.error(SIGNUP_NOT_SAME_PASSWORD, icon="🚨")
 
         btn_signup = st.form_submit_button('Crear cuenta', use_container_width=True, type='primary')
         btn_goto_login = st.form_submit_button('Inicia sesión', use_container_width=True, type='secondary')
