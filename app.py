@@ -36,7 +36,7 @@ if st.session_state.current_form == 'signin':
                 response = response.json()
                 st.write(response)
                 st.session_state.current_user.userId = response['user_id']
-                st.session_state.current_user.accountId = response['user_account']['account_id']
+                st.session_state.current_user.accountId = response['account']['account_id']
                 st.session_state.current_user.accessToken = response['access_token']['access_token']
             except Exception as e:
                 st.exception(e)
@@ -98,6 +98,7 @@ if st.session_state.current_form == 'signup':
             st.rerun()
 
 if st.session_state.current_form == 'verification_code':
+    st.write(st.session_state.current_user)
     with st.form('Login', clear_on_submit=True):
         st.header('Verifica tu cuenta')
         st.markdown('Ingresa el código de verificación que ha sido enviado a tu correo')
@@ -106,10 +107,11 @@ if st.session_state.current_form == 'verification_code':
         btn_verify_account = st.form_submit_button('Verificar cuenta', use_container_width=True, type='primary')
         if btn_verify_account:
             try:
-                requests.post(
+                response = requests.post(
                     f'{os.getenv("BASE_URL")}/inffia/api/v1/accounts/verification/'
                     f'{st.session_state.current_user.accountId}/{user_verification_code}'
                 )
+                response = response.json()
                 st.session_state.current_user.accessToken = response['access_token']
                 st.success(MESSAGES_EMAIL_VERIFIED_SUCCESS, icon="✅")
             except Exception as e:
