@@ -70,11 +70,20 @@ def sign_up_component():
                     'first_name': user_signup_name,
                     'lastname': user_signup_lastname,
                 })
-                response = response.json()
-                st.session_state.current_user.userId = response['user_id']
-                st.session_state.current_user.accountId = response['account']['account_id']
-                st.session_state.current_form = 'verification_code'
-                st.rerun()
+
+                response_json = response.json()
+
+                st.write(response_json)
+
+                if response.status_code != 201:
+                    st.error(response_json['detail'], icon="🚨")
+                    st.stop()
+                else:
+                    st.session_state.current_user.userId = response_json['user_id']
+                    st.session_state.current_user.accountId = response_json['account']['account_id']
+                    st.session_state.current_form = 'verification_code'
+                    st.rerun()
+
             except Exception as e:
                 st.exception(e)
 
