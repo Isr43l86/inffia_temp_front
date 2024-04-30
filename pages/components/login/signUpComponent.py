@@ -4,7 +4,16 @@ import requests
 import streamlit as st
 
 from dependencies import verify_email
-from errorConstants import SIGNUP_EMAIL_INVALID, SIGNUP_PHONE_INVALID, SIGNUP_NOT_SAME_PASSWORD
+from errorConstants import (
+    SIGNUP_EMAIL_INVALID,
+    SIGNUP_PHONE_INVALID,
+    SIGNUP_NOT_SAME_PASSWORD,
+    SIGNUP_EMPTY_NAME,
+    SIGNUP_EMPTY_LASTNAME,
+    SIGNUP_EMPTY_EMAIL,
+    SIGNUP_EMPTY_PHONE,
+    SIGNUP_EMPTY_PASSWORD,
+)
 
 
 def sign_up_component():
@@ -36,6 +45,23 @@ def sign_up_component():
         btn_goto_login = st.form_submit_button('Inicia sesión', use_container_width=True, type='secondary')
 
         if btn_signup:
+
+            if not user_signup_name:
+                st.error(SIGNUP_EMPTY_NAME, icon="🚨")
+                st.stop()
+            if not user_signup_lastname:
+                st.error(SIGNUP_EMPTY_LASTNAME, icon="🚨")
+                st.stop()
+            if not user_signup_email:
+                st.error(SIGNUP_EMPTY_EMAIL, icon="🚨")
+                st.stop()
+            if not user_signup_phone:
+                st.error(SIGNUP_EMPTY_PHONE, icon="🚨")
+                st.stop()
+            if not user_signup_password:
+                st.error(SIGNUP_EMPTY_PASSWORD, icon="🚨")
+                st.stop()
+
             try:
                 response = requests.post(f'{os.getenv("BASE_URL")}/inffia/api/v1/users/signup', json={
                     'email': user_signup_email,
