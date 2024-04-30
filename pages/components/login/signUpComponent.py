@@ -45,7 +45,6 @@ def sign_up_component():
                     'lastname': user_signup_lastname,
                 })
                 response = response.json()
-                st.write(response)
                 st.session_state.current_user.userId = response['user_id']
                 st.session_state.current_user.accountId = response['account']['account_id']
                 st.session_state.current_form = 'verification_code'

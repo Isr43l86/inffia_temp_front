@@ -2,8 +2,8 @@ import streamlit as st
 
 
 def authenticated_menu():
-    st.sidebar.page_link("app.py", label="Login")
-    st.sidebar.page_link("pages/llmCoip.py", label="Home")
+    st.sidebar.title("LLM's")
+    st.sidebar.page_link("pages/llmCoip.py", label="COIP LLM")
 
 
 def unauthenticated_menu():

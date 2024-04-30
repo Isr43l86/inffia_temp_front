@@ -7,7 +7,6 @@ from appConstants import MESSAGES_EMAIL_VERIFIED_SUCCESS
 
 
 def verify_email_component():
-    st.write(st.session_state.current_user)
     with st.form('Login', clear_on_submit=True):
         st.header('Verifica tu cuenta')
         st.markdown('Ingresa el código de verificación que ha sido enviado a tu correo')

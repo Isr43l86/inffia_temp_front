@@ -19,10 +19,10 @@ def login_form():
                     'password': user_login_password,
                 })
                 response = response.json()
-                st.write(response)
                 st.session_state.current_user.userId = response['user_id']
                 st.session_state.current_user.accountId = response['account']['account_id']
                 st.session_state.current_user.accessToken = response['access_token']['access_token']
+                st.switch_page("pages/llmCoip.py")
             except Exception as e:
                 st.exception(e)
 

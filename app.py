@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 
 from menu import menu
 from models.userModel import UserModel
-from pages.login.components import loginFormComponent, signUpComponent, verifyEmailComponent
+from pages.components.login import loginFormComponent, signUpComponent, verifyEmailComponent
 
 load_dotenv()
 
