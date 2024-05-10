@@ -23,9 +23,6 @@ response = requests.get(
 response_json = response.json()
 st.session_state.current_user.conversationId = response_json[0]['conversation_id']
 
-# LOAD USER MESSAGES
-messages = requests.get(f'{os.getenv("BASE_URL")}')
-
 
 def stream_data(ai_message):
     for word in ai_message.split(" "):
@@ -96,6 +93,16 @@ st.title("🚀 COIP BOT")
 st.caption("Realiza propuestas de ley y permite que chat bot encuentre conflicto con las leyes actuales")
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "Hola, en que puedo ayudarte?"}]
+    messages = requests.get(
+        f'{os.getenv("BASE_URL")}/inffia/api/v1/conversations/messages/{st.session_state.current_user.conversationId}',
+        headers={
+            'Authorization': f'Bearer {st.session_state.current_user.accessToken}'
+        }
+    )
+    messages_json = messages.json()
+    for message in messages_json:
+        st.session_state.messages.append({"role": "user", "content": message['user_message']})
+        st.session_state.messages.append({"role": "assistant", "content": message['ai_model_response']})
 
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
