@@ -1,6 +1,8 @@
 import ast
+import os
 import time
 
+import requests
 import streamlit as st
 import websocket
 
@@ -8,6 +10,21 @@ from errorConstants import LLM_COIP_NO_PASSAGES_FOUND
 from menu import menu_with_redirect
 
 global status_component
+
+# LOAD USER DATA
+# LOAD USER CONVERSATION
+response = requests.get(
+    f'{os.getenv("BASE_URL")}/inffia/api/v1/conversations/all',
+    headers={
+        'Authorization': f'Bearer {st.session_state.current_user.accessToken}'
+    }
+)
+
+response_json = response.json()
+st.session_state.current_user.conversationId = response_json[0]['conversation_id']
+
+# LOAD USER MESSAGES
+messages = requests.get(f'{os.getenv("BASE_URL")}')
 
 
 def stream_data(ai_message):
