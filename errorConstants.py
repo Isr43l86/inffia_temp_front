@@ -13,3 +13,8 @@ SIGNUP_EMPTY_EMAIL = 'Correo electrónico obligatorio'
 SIGNUP_EMPTY_PHONE = 'Teléfono obligatorio'
 SIGNUP_EMPTY_PASSWORD = 'Contraseña obligatoria'
 SIGNUP_EMPTY_VERIFY_CODE = 'Código de verificación obligatorio'
+
+# LLM
+# COIP
+LLM_COIP_NO_PASSAGES_FOUND = ('No se encontraron leyes relacionadas con la nueva ley propuesta, puedes intentar '
+                              'nuevamente con un porcentaje de similaridad menor')

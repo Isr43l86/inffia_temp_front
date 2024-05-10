@@ -31,7 +31,7 @@ def login_form():
 
                 response_json = response.json()
 
-                if response.status_code != 200:
+                if response.status_code != 201:
                     st.error(response_json['detail'], icon="🚨")
                 else:
                     st.session_state.current_user.userId = response_json['user_id']
