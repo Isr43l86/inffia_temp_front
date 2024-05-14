@@ -110,7 +110,7 @@ if "messages" not in st.session_state:
         }
     )
     messages_json = messages.json()
-    st.write(messages_json)
+
     for message in messages_json:
         st.session_state.messages.append({"role": "user", "content": message['user_message']})
         if message['ai_model_response'] == "":
