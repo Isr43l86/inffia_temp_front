@@ -11,6 +11,9 @@ from menu import menu_with_redirect
 
 global status_component
 
+if "current_user" not in st.session_state or st.session_state.current_user.accessToken is None:
+    st.switch_page('app.py')
+
 # LOAD USER DATA
 # LOAD USER CONVERSATION
 response = requests.get(
@@ -40,14 +43,14 @@ def on_message(ws, message):
             st.session_state.messages.append({"role": "assistant", "content": LLM_COIP_NO_PASSAGES_FOUND})
             st.chat_message("assistant").write_stream(stream_data(LLM_COIP_NO_PASSAGES_FOUND))
         else:
-            for response in final_response:
+            for prompt_response in final_response:
                 ai_response = """
                     Según el artículo
                     
                     {current_law}
                     
                     {conflict}
-                """.format(current_law=response['article'], conflict=response['conflict'])
+                """.format(current_law=prompt_response['article'], conflict=prompt_response['conflict'])
                 st.session_state.messages.append({"role": "assistant", "content": ai_response})
                 st.chat_message("assistant").write_stream(stream_data(ai_response))
     else:
@@ -88,6 +91,12 @@ with st.sidebar:
         "esten relacionados con la nueva propuesta de ley, permitiendote encontrar no solo el documento más similar, "
         "sino también aquellos que son solo parcialmente similares al texto buscado.",
         0, 100, 80)
+
+    st.write('')
+
+    if st.button("Cerrar Sesión", type="primary"):
+        del st.session_state.current_user
+        st.switch_page('app.py')
 
 st.title("🚀 COIP BOT")
 st.caption("Realiza propuestas de ley y permite que chat bot encuentre conflicto con las leyes actuales")
