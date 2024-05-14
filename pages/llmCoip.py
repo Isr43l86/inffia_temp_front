@@ -96,6 +96,7 @@ with st.sidebar:
 
     if st.button("Cerrar Sesión", type="primary"):
         del st.session_state.current_user
+        del st.session_state.messages
         st.switch_page('app.py')
 
 st.title("🚀 COIP BOT")
@@ -109,9 +110,13 @@ if "messages" not in st.session_state:
         }
     )
     messages_json = messages.json()
+    st.write(messages_json)
     for message in messages_json:
         st.session_state.messages.append({"role": "user", "content": message['user_message']})
-        st.session_state.messages.append({"role": "assistant", "content": message['ai_model_response']})
+        if message['ai_model_response'] == "":
+            st.session_state.messages.append({"role": "assistant", "content": LLM_COIP_NO_PASSAGES_FOUND})
+        else:
+            st.session_state.messages.append({"role": "assistant", "content": message['ai_model_response']})
 
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
